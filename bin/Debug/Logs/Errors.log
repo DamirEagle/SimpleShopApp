@@ -1,0 +1,8 @@
+2021-04-04 15:43:42,278 [1] ERROR TestTaskFromNikita.Forms.ShopForm - Worked not right
+2021-04-05 02:49:40,790 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Не выбраны деньги
+2021-04-05 18:04:06,146 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Не выбраны деньги
+2021-04-05 19:50:06,630 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Не выбраны деньги
+2021-04-05 19:50:18,031 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Недостаточно средств
+2021-04-05 19:50:33,627 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Заказ номер 1 уже в платежах
+2021-04-05 19:50:38,239 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Заказ номер 1 уже в платежах
+2021-04-05 19:50:47,163 [1] ERROR TestTaskFromNikita.Services.LogService.Log4NetService - Заказ номер 1 уже в платежах

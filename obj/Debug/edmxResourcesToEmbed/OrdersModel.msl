@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OrdersPaymentsDBModelStoreContainer" CdmEntityContainer="OrdersPaymentsDBEntities">
+    <EntitySetMapping Name="money">
+      <EntityTypeMapping TypeName="OrdersPaymentsDBModel.money">
+        <MappingFragment StoreEntitySet="money">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="sum" ColumnName="sum" />
+          <ScalarProperty Name="remainder" ColumnName="remainder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="OrdersPaymentsDBModel.orders">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="sum" ColumnName="sum" />
+          <ScalarProperty Name="sum_to_pay" ColumnName="sum_to_pay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="OrdersPaymentsDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="OrdersPaymentsDBModel.payments">
+        <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="money_id" ColumnName="money_id" />
+          <ScalarProperty Name="payment_sum" ColumnName="payment_sum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

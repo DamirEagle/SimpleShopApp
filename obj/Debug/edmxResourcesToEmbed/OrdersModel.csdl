@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OrdersPaymentsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="money">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="sum" Type="Int32" Nullable="false" />
+    <Property Name="remainder" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="payments" Relationship="Self.FK_Id_MoneyId" FromRole="money" ToRole="payments" />
+  </EntityType>
+  <EntityType Name="orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="sum" Type="Int32" Nullable="false" />
+    <Property Name="sum_to_pay" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="payments" Relationship="Self.FK_Id_OrderId" FromRole="orders" ToRole="payments" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="payments">
+    <Key>
+      <PropertyRef Name="order_id" />
+      <PropertyRef Name="money_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" />
+    <Property Name="money_id" Type="Int32" Nullable="false" />
+    <Property Name="payment_sum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="money" Relationship="Self.FK_Id_MoneyId" FromRole="payments" ToRole="money" />
+    <NavigationProperty Name="orders" Relationship="Self.FK_Id_OrderId" FromRole="payments" ToRole="orders" />
+  </EntityType>
+  <Association Name="FK_Id_MoneyId">
+    <End Role="money" Type="Self.money" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="payments" Type="Self.payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="money">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payments">
+        <PropertyRef Name="money_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Id_OrderId">
+    <End Role="orders" Type="Self.orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="payments" Type="Self.payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="payments">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OrdersPaymentsDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="money" EntityType="Self.money" />
+    <EntitySet Name="orders" EntityType="Self.orders" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="payments" EntityType="Self.payments" />
+    <AssociationSet Name="FK_Id_MoneyId" Association="Self.FK_Id_MoneyId">
+      <End Role="money" EntitySet="money" />
+      <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Id_OrderId" Association="Self.FK_Id_OrderId">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
