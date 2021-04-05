@@ -1,10 +1,10 @@
---Создаем БД
+--Г‘Г®Г§Г¤Г ГҐГ¬ ГЃГ„
 CREATE DATABASE OrdersPaymentsDB
 GO
 USE [OrdersPaymentsDB]
 GO
 
---Создаем таблицу денег
+--Г‘Г®Г§Г¤Г ГҐГ¬ ГІГ ГЎГ«ГЁГ¶Гі Г¤ГҐГ­ГҐГЈ
 SET ANSI_NULLS ON
 GO
 
@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[money](
 ) ON [PRIMARY]
 GO
 
---Создаем таблицу заказов
+--Г‘Г®Г§Г¤Г ГҐГ¬ ГІГ ГЎГ«ГЁГ¶Гі Г§Г ГЄГ Г§Г®Гў
 CREATE TABLE [dbo].[orders](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[date] [date] NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[orders](
 ) ON [PRIMARY]
 GO
 
---Создаем таблицу платежей
+--Г‘Г®Г§Г¤Г ГҐГ¬ ГІГ ГЎГ«ГЁГ¶Гі ГЇГ«Г ГІГҐГ¦ГҐГ©
 CREATE TABLE [dbo].[payments](
 	[order_id] [int] NOT NULL,
 	[money_id] [int] NOT NULL,
@@ -66,7 +66,7 @@ GO
 ALTER TABLE [dbo].[payments] CHECK CONSTRAINT [FK_Id_OrderId]
 GO
 
---Создаем триггер для уменьшения денег на счету
+--Г‘Г®Г§Г¤Г ГҐГ¬ ГІГ°ГЁГЈГЈГҐГ° Г¤Г«Гї ГіГ¬ГҐГ­ГјГёГҐГ­ГЁГї Г¤ГҐГ­ГҐГЈ Г­Г  Г±Г·ГҐГІГі
 SET ANSI_NULLS ON
 GO
 
@@ -91,7 +91,7 @@ GO
 
 ALTER TABLE [dbo].[payments] ENABLE TRIGGER [remainder_reducer]
 GO
---Создаем триггер автоматического заполнения заказа оплаченной суммой
+--Г‘Г®Г§Г¤Г ГҐГ¬ ГІГ°ГЁГЈГЈГҐГ° Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГ®ГЈГ® Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГї Г§Г ГЄГ Г§Г  Г®ГЇГ«Г Г·ГҐГ­Г­Г®Г© Г±ГіГ¬Г¬Г®Г©
 CREATE TRIGGER [dbo].[sum_to_pay_check]
 ON [dbo].[payments]
 AFTER INSERT
@@ -111,3 +111,19 @@ GO
 
 ALTER TABLE [dbo].[payments] ENABLE TRIGGER [sum_to_pay_check]
 GO
+
+--Р’СЃС‚Р°РІРєР° РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†С‹
+--Р·Р°РєР°Р·С‹
+insert into orders(date, sum, sum_to_pay)
+values (GETDATE(), 1000, 0)
+go
+insert into orders(date, sum, sum_to_pay)
+values (GETDATE(), 2000, 0)
+go
+--РґРµРЅСЊРіРё
+insert into money(date, sum, remainder)
+values (GETDATE(), 1000, 1000)
+go
+insert into orders(date, sum, sum_to_pay)
+values (GETDATE(), 2000, 2000)
+go
